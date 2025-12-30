@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zomato Clone</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f8f8f8; }
+
+    /* Header */
+    header {
+      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') center/cover no-repeat;
+      height: 60vh;
+      color: white;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.55);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header h1 { font-size: 3.5rem; }
+    header p { margin: 10px 0 20px; font-size: 1.2rem; }
+
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      width: 60%;
+      max-width: 600px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+    .search-box button {
+      background: #e23744;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+
+    /* Restaurant Section */
+    .container { width: 90%; max-width: 1200px; margin: 40px auto; }
+    .title { margin-bottom: 20px; font-size: 1.8rem; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content { padding: 15px; }
+    .card-content h3 { margin-bottom: 8px; }
+    .card-content p { color: #666; font-size: 0.9rem; }
+    .card-content button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #e23744;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="overlay">
+      <h1>Zomato</h1>
+      <p>Discover the best food & drinks near you</p>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Search for restaurant or dish" />
+        <button onclick="searchRestaurant()">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Restaurant Cards -->
+  <section class="container">
+    <h2 class="title">Popular Restaurants</h2>
+    <div class="cards" id="restaurantList"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Zomato Clone | Educational Project</p>
+  </footer>
+
+  <script>
+    const restaurants = [
+      { name: "Pizza Palace", cuisine: "Italian", img: "https://images.unsplash.com/photo-1548365328-9f547fb09503" },
+      { name: "Burger Hub", cuisine: "Fast Food", img: "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+      { name: "Spice Villa", cuisine: "Indian", img: "https://images.unsplash.com/photo-1604908177522-402fda96e5a2" },
+      { name: "Sushi World", cuisine: "Japanese", img: "https://images.unsplash.com/photo-1553621042-f6e147245754" }
+    ];
+
+    const list = document.getElementById('restaurantList');
+
+    function displayRestaurants(data) {
+      list.innerHTML = '';
+      data.forEach(r => {
+        list.innerHTML += `
+          <div class="card">
+            <img src="${r.img}" alt="${r.name}">
+            <div class="card-content">
+              <h3>${r.name}</h3>
+              <p>${r.cuisine}</p>
+              <button onclick="orderFood('${r.name}')">Order Now</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    function searchRestaurant() {
+      const value = document.getElementById('search').value.toLowerCase();
+      const filtered = restaurants.filter(r => r.name.toLowerCase().includes(value));
+      displayRestaurants(filtered);
+    }
+
+    function orderFood(name) {
+      alert(`Order placed from ${name}! (Demo)`);
+    }
+
+    displayRestaurants(restaurants);
+  </script>
+</body>
+</html>
